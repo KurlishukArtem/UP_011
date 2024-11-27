@@ -28,7 +28,7 @@ namespace UP_011.Elements
             InitializeComponent();
             _partners = partners;
             lb_type.Content += partners.Type_partner;
-            lb_director.Content += partners.Director;
+            lb_director.Content += partners.Director; 
             lb_phone.Content += Convert.ToString(partners.Phone);
             lb_raiting.Content += Convert.ToString(partners.Raiting);
         }
