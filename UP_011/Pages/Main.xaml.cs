@@ -1,42 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using master_pol.Config;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace UP_011.Pages
+namespace master_pol.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Main.xaml
-    /// </summary>
     public partial class Main : Page
     {
-        List<Classes.Contexts.PartnersContext> AllPartners = Classes.Contexts.PartnersContext.AllParnters();
         public Main()
         {
             InitializeComponent();
-            LoadItem();
+            CreateUI();
         }
-        public void LoadItem()
+        public void CreateUI()
         {
-            foreach(var item in AllPartners)
+            parent.Children.Clear();
+            foreach (var partner in new DataContext().partners)
             {
-                Parent.Children.Add(new Elements.Element(item));
+                parent.Children.Add(new Elements.Partner_item(partner));
+            }
+        }
+
+        public void CreateHistUI(int partnerId)
+        {
+            parent.Children.Clear();
+            using (DataContext Context= new DataContext())
+            {
+                var Sells = Context.procGetHistPartner.FromSqlRaw("CALL GetHistPartner(@p0)", partnerId).ToList();
+                foreach (var hist in Sells)
+                {
+                    parent.Children.Add(new Elements.History_item(hist));
+                }
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.init.frame.Navigate(new Pages.Add());
+            MainWindow.window.OpenPages(MainWindow.Page.Partners);
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.window.main.List.Content = "Партнёры";
+            MainWindow.window.main.BtnBack.Visibility = Visibility.Hidden;
+            MainWindow.window.main.Add.Visibility = Visibility.Visible;
+            MainWindow.window.main.CreateUI();
         }
     }
 }
