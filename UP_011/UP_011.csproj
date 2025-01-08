@@ -107,9 +107,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Elements\Element.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Elements\History_item.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Elements\Partner_item.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -124,8 +128,11 @@
     <Compile Include="Classes\Contexts\PartnersContext.cs" />
     <Compile Include="Classes\Material_type.cs" />
     <Compile Include="Classes\partners.cs" />
-    <Compile Include="Elements\Element.xaml.cs">
-      <DependentUpon>Element.xaml</DependentUpon>
+    <Compile Include="Elements\History_item.xaml.cs">
+      <DependentUpon>History_item.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\Partner_item.xaml.cs">
+      <DependentUpon>Partner_item.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
